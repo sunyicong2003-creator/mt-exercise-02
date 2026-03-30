@@ -10,6 +10,24 @@ This repo shows how to train neural language models using [Pytorch example code]
 
     `pip install virtualenv`
 
+# Task 1: Custom Dataset
+
+For Task 1, replacing the original Grimm dataset with a new dataset:"Pride and Prejudice" from Project Gutenberg.
+
+### Changes Made
+
+- Modified 'scripts/download_data.sh':
+	- Replaced the dataset with "Pride and Prejudice" (Gutenberg ID 1342)
+	- Removed the use of 'preprocess_raw.py', as it removed too much content for this dataset
+	- Used 'cp' to directly copy the raw text before tokenisation
+
+- Update dataset paths:
+ - Changed from'data/grimm' to 'data/pride_and_prejudice'
+ 
+- Update scripts:
+	- 'scripts/train.sh' now uses the new dataset
+	- 'scripts/generate.sh' now uses the new dataset
+	
 # Steps
 
 Clone this repository in the desired place:
