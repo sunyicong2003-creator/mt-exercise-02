@@ -16,7 +16,7 @@ device=""
 (cd $tools/pytorch-examples/word_language_model &&
     CUDA_VISIBLE_DEVICES=$device OMP_NUM_THREADS=$num_threads python generate.py \
         --data $data/pride_and_prejudice \
-        --words 100 \
-        --checkpoint $models/model.pt \
+        --words 200 \
+        --checkpoint $models/model_0.1.pt \
         --outf $samples/sample
 )

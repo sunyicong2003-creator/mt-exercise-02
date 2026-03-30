@@ -1,0 +1,2 @@
+Metric,Dropout 0.0,Dropout 0.1,Dropout 0.3,Dropout 0.6,Dropout 0.9
+Test perplexity,85.3819,543.1027,81.7757,83.1178,228.6797

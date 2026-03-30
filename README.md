@@ -10,53 +10,62 @@ This repo shows how to train neural language models using [Pytorch example code]
 
     `pip install virtualenv`
 
-# Task 1: Custom Dataset
+# Task 2: Parameter Tuning -Dropout
 
-For Task 1, replacing the original Grimm dataset with a new dataset:"Pride and Prejudice" from Project Gutenberg.
+### Description
+
+In this task, we investigate the effect of different dropout values on language model performances.
+we train multiple models with varying dropout settings and compare their training, validation, and test perplexities.
+
+---
+
 
 ### Changes Made
 
-- Modified 'scripts/download_data.sh':
-	- Replaced the dataset with "Pride and Prejudice" (Gutenberg ID 1342)
-	- Removed the use of 'preprocess_raw.py', as it removed too much content for this dataset
-	- Used 'cp' to directly copy the raw text before tokenisation
+- Modified `tools/pytorch-examples/word_language_model/main.py`:
+  - Added logging for:
+    - Training perplexity (`*.train.log`)
+    - Validation perplexity (`*.valid.log`)
+    - Test perplexity (`*.test.log`)
+  - Computed average training loss per epoch
 
-- Update dataset paths:
- - Changed from'data/grimm' to 'data/pride_and_prejudice'
- 
-- Update scripts:
-	- 'scripts/train.sh' now uses the new dataset
-	- 'scripts/generate.sh' now uses the new dataset
+- Created multiple training scripts with different dropout values:
+  - `scripts/train_dropout_0.sh`
+  - `scripts/train_dropout_0.1.sh`
+  - `scripts/train_dropout_0.3.sh`
+  - `scripts/train_dropout_0.6.sh`
+  - `scripts/train_dropout_0.9.sh`
+
+- Created `scripts/make_tables_and_plots.py`:
+  - Reads log files from `models/`
+  - Generates:
+    - CSV tables for training, validation, and test perplexity
+    - Line plots for training and validation perplexity
+
+- Generate samples:
+ - Modified `./scripts/generate.sh`
+ 	- replacing `$models/model.pt \` to `$models/model_(DROPOUT VALUE YOU NEED).pt \`
+
 	
 # Steps
 
-Clone this repository in the desired place:
 
-    git clone https://github.com/marcamsler1/mt-exercise-02
-    cd mt-exercise-02
+### How to Run
 
-Create a new virtualenv that uses Python 3. Please make sure to run this command outside of any virtual Python environment:
+Run the following commands in order:
 
-    ./scripts/make_virtualenv.sh
+- train models
+```bash
+./scripts/train_dropout_0.sh'
+./scripts/train_dropout_0.1.sh
+./scripts/train_dropout_0.3.sh
+./scripts/train_dropout_0.6.sh
+./scripts/train_dropout_0.9.sh
+```
+- get the plots and tables
+`python scripts/make_tables_and_plots.py`
 
-**Important**: Then activate the env by executing the `source` command that is output by the shell script above.
-
-Download and install required software:
-
-    ./scripts/install_packages.sh
-
-Download and preprocess data:
-
-    ./scripts/download_data.sh
-
-Train a model:
-
-    ./scripts/train.sh
-
-The training process can be interrupted at any time, and the best checkpoint will always be saved.
-
-Generate (sample) some text from a trained model with:
-
-    ./scripts/generate.sh
+- generate samples
+`./scripts/generate`
 
 
